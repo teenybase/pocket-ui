@@ -1,0 +1,54 @@
+{
+  "name": "@teenybase/pocket-ui",
+  "version": "0.0.1",
+  "description": "Pocket UI for teenybase admin. (forked from pocketbase)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "prepare": "npm run build",
+    "run-pack": "npm pack",
+    "run-publish": "git diff --quiet master -- && npm publish --access public && git tag v$(node -p \"require('./package.json').version\") && git push --tags"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/repalash/teeny-pocket-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/repalash/teeny-pocket-ui/issues"
+  },
+  "author": "repalash <palash@shaders.app>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^3.1.2",
+    "@types/node": "^22.10.1",
+    "sass": "^1.45.0",
+    "svelte": "^4.0.0",
+    "svelte-spa-router": "^4.0.1",
+    "teenybase": "^0.0.2",
+    "typescript": "^5.7.2",
+    "vite": "^5.0.11",
+    "luxon": "^3.5.0",
+    "svelte-flatpickr": "^3.3.5",
+    "@codemirror/autocomplete": "^6.0.0",
+    "@codemirror/commands": "^6.0.0",
+    "@codemirror/lang-html": "^6.1.0",
+    "@codemirror/lang-javascript": "^6.0.2",
+    "@codemirror/lang-json": "^6.0.0",
+    "@codemirror/lang-sql": "^6.4.0",
+    "@codemirror/language": "^6.0.0",
+    "@codemirror/legacy-modes": "^6.0.0",
+    "@codemirror/search": "^6.0.0",
+    "@codemirror/state": "^6.0.0",
+    "@codemirror/view": "^6.0.0"
+  },
+  "homepage": "https://teenybase.com"
+}
