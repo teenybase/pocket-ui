@@ -29,10 +29,11 @@
 
         try {
             const fallbackSearchFields = CommonHelper.getAllCollectionIdentifiers(collection);
+            const pkField = collection.fields.find(f=>f.primary)?.name ?? 'id'
 
             const result = await ApiClient.getList(collection.name, 1, 1, {
                 filter: CommonHelper.normalizeSearchFilter(filter, fallbackSearchFields),
-                fields: ["count(id)=>totalItems"],
+                fields: [`count(${pkField})=>totalItems`],
                 requestKey: "records_count",
             });
             // const result = {totalItems: 100};

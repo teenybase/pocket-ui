@@ -45,7 +45,7 @@
     <span class="txt-hint">N/A</span>
 {:else if field.type === "bool"}
     <span class="label" class:label-success={!!rawValue}>{rawValue ? "True" : "False"}</span>
-{:else if field.type === "number"}
+{:else if field.type === "number" || field.type === "integer"}
     <span class="txt">{rawValue}</span>
 {:else if field.type === "url"}
     <a
@@ -124,6 +124,8 @@
             ...
         {/if}
     </div>
+{:else if field.type === "blob"}
+    <span class="txt txt-ellipsis">{CommonHelper.truncate(CommonHelper.plainText(rawValue), 195)}</span>
 {:else if short}
     <span class="txt txt-ellipsis" title={CommonHelper.truncate(rawValue)}>
         {CommonHelper.truncate(rawValue)}

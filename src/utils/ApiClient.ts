@@ -91,10 +91,7 @@ class ApiClient_ extends Client{
             }),
             requestKey: options.requestKey
         })
-        res.forEach((item: CollectionRecord)=>{
-            if(item.password) delete item.password // todo when logged in as admin, it returns noSelect fields in *
-            item.collectionName = table
-        })
+        this._fixRecordFields(table, res);
         return {
             page, items: res,
         }
@@ -114,10 +111,12 @@ class ApiClient_ extends Client{
     }
 
     async updateRecord(table: string, record: string, data: any){
+        let where = this._recordWhere(table, record);
+        if(!where) return null
         const body = {
             setValues: Object.fromEntries(data.entries()),
             returning: "*",
-            where: `id = ${JSON.stringify(record)}`
+            where,
         }
         // console.log(body)
 
@@ -130,10 +129,12 @@ class ApiClient_ extends Client{
     }
 
     async deleteRecord(table: string, record: string){
+        let where = this._recordWhere(table, record);
+        if(!where) return null
         const res = await this.send(`/table/${table}/delete`, {
             method: 'post',
             body: ({
-                where: `id = ${JSON.stringify(record)}`
+                where,
             }),
             requestKey: 'deleteRecord'
         })
@@ -141,20 +142,62 @@ class ApiClient_ extends Client{
     }
 
     async getOne(table: string, record: string){
+        let where = this._recordWhere(table, record);
+        if(!where) return null
         const res = await this.send(`/table/${table}/select`, {
             method: 'post',
             body: ({
                 limit: 1,
                 select: ['*'],
-                where: `id = ${JSON.stringify(record)}`,
+                where: where,
             }),
             requestKey: 'getOneRecord'
         })
-        if(res[0]) {
-            if(res[0].password) delete res[0].password // todo when logged in as admin, it returns noSelect fields in *
-            res[0].collectionName = table
-        }
+        this._fixRecordFields(table, res);
         return res?.[0]??null
+    }
+
+    private _recordWhere(table: string, record: string) {
+        const table1 = this.settings.tables
+          .find(t => t.name === table);
+        let idField = table1?.fields
+          .find(f => f.name === 'id' && f.primary && f.type === 'text')?.name;
+        const pkFields = table1?.fields?.filter(f => f.primary)?.map(f => f.name);
+        if(pkFields?.length||0 > 1) idField = undefined
+        if (idField) {
+            return `${idField} = ${JSON.stringify(record)}`;
+        } else {
+            if (!pkFields) {
+                console.error('Table has no primary key fields')
+                return '';
+            } else {
+                const parts = record.split(';');
+                if(parts.length !== pkFields.length){
+                    console.error('Record key does not match primary key fields', record, pkFields)
+                    return '';
+                }
+                return pkFields.map((f, i) => `${f} = ${JSON.stringify(parts[i])}`).join(` ${ANDOperator} `);
+            }
+        }
+    }
+
+    private _fixRecordFields(table: string, res: CollectionRecord[]) {
+        const table1 = this.settings.tables
+          .find(t => t.name === table);
+        const idField = table1?.fields
+          .find(f => f.name === 'id' && f.primary && f.type === 'text')?.name;
+        const pkFields = table1?.fields?.filter(f => f.primary)?.map(f => f.name);
+        if((pkFields?.length||0 > 1) && idField){
+            console.error('Table has id field and multiple primary key fields. Not supported at the moment')
+            res.splice(0, res.length) // clear res array so that the data cannot be used.
+        }
+        res.forEach((item) => {
+            if (item.password) delete item.password; // todo when logged in as admin, it returns noSelect fields in *
+            item.collectionName = table;
+            if (!idField && pkFields) {
+                item.id = pkFields.map(f => item[f]).join(';'); // todo
+            }
+        });
     }
 
     /**

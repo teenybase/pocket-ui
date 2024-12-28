@@ -59,7 +59,7 @@
 
     $: hasEditorField = !!collection?.fields?.find((f) => f.type === "editor");
 
-    $: idField = collection?.fields?.find((f) => f.name === "id");
+    $: idField = collection?.fields?.find((f) => f.name === "id" && f.type === "text" && f.primary);
 
     $: hasFileChanges =
         CommonHelper.hasNonEmptyProps(uploadedFilesMap) || CommonHelper.hasNonEmptyProps(deletedFileNamesMap);
@@ -80,7 +80,7 @@
         onCollectionChange();
     }
 
-    const baseSkipFieldNames = ["id"];
+    const baseSkipFieldNames:string[] = [];
 
     const authSkipFieldNames = baseSkipFieldNames.concat(
         "email",
@@ -93,7 +93,7 @@
     $: skipFieldNames = isAuthCollection ? authSkipFieldNames : baseSkipFieldNames;
 
     $: regularFields =
-        collection?.fields?.filter((f) => !skipFieldNames.includes(f.name) && f.type != "autodate") || [];
+        collection?.fields?.filter((f) => !skipFieldNames.includes(f.name) && f.type != "autodate" && f.name !== idField?.name) || [];
 
     export function show(model?: string | CollectionRecord) {
         load(model);
@@ -694,6 +694,7 @@
                 </div>
             {/if}
 
+            {#if idField}
             <Field class="form-field {(isNew?idField?.noInsert:idField?.noUpdate) ? 'readonly' : ''}" name="id" let:uniqueId>
                 <label for={uniqueId}>
                     <i class={CommonHelper.getFieldTypeIcon("primary")} />
@@ -708,7 +709,7 @@
                 <input
                     type="text"
                     id={uniqueId}
-                    placeholder={!isLoading && collection.autoSetUid
+                    placeholder={!isLoading && collection?.autoSetUid
                         ? "Leave empty to auto generate..."
                         : ""}
                     minlength={idField?.min}
@@ -716,6 +717,7 @@
                     bind:value={record.id}
                 />
             </Field>
+            {/if}
 
             {#if isAuthCollection}
                 <AuthFields bind:record {isNew} {collection} />
@@ -726,9 +728,9 @@
             {/if}
 
             {#each regularFields as field (field.name)}
-                {#if field.type === "text"}
+                {#if field.type === "text" || field.type === "blob"}
                     <TextField {field} {original} {record} readonly={isNew ? field.noInsert : field.noUpdate} bind:value={record[field.name]} />
-                {:else if field.type === "number"}
+                {:else if field.type === "number" || field.type === "integer"}
                     <NumberField {field} {original} {record} readonly={isNew ? field.noInsert : field.noUpdate} bind:value={record[field.name]} />
                 {:else if field.type === "bool"}
                     <BoolField {field} {original} {record} readonly={isNew ? field.noInsert : field.noUpdate} bind:value={record[field.name]} />

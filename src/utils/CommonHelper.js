@@ -1069,14 +1069,15 @@ export default class CommonHelper {
     /**
      * Returns a dummy collection fields data object.
      *
-     * @param  {Object} collection
+     * @param  {TableData} collection
      * @return {Object}
      */
     static dummyCollectionSchemaData(collection, forSubmit = false) {
-        const fields = collection?.fields || [];
+        const fields = collection?.fields;
 
         const dummy = {};
 
+        if(fields)
         for (const field of fields) {
             if (
                 field.hidden ||
@@ -1088,38 +1089,40 @@ export default class CommonHelper {
 
             let val = null;
 
-            if (field.type === "number") {
+            if (field.type === "number" || field.type === "integer") {
                 val = 123;
             } else if (field.type === "date" || field.type === "autodate") {
                 val = "2022-01-01 10:00:00.123Z";
-            } else if (field.type == "bool") {
+            } else if (field.type === "bool") {
                 val = true;
-            } else if (field.type == "email") {
+            } else if (field.type === "email") {
                 val = "test@example.com";
-            } else if (field.type == "url") {
+            } else if (field.type === "url") {
                 val = "https://example.com";
-            } else if (field.type == "json") {
+            } else if (field.type === "json") {
                 val = 'JSON';
-            } else if (field.type == "file") {
+            } else if (field.type === "file") {
                 if (forSubmit) {
                     // @todo add a File obj example after the refactoring
                     continue
                 } else {
                     val = "filename.jpg"
-                    if (field.maxSelect != 1) {
+                    if (field.maxSelect !== 1) {
                         val = [val];
                     }
                 }
-            } else if (field.type == "select") {
+            } else if (field.type === "select") {
                 val = field?.values?.[0];
-                if (field?.maxSelect != 1) {
+                if (field?.maxSelect !== 1) {
                     val = [val];
                 }
-            } else if (field.type == "relation") {
+            } else if (field.type === "relation") {
                 val = 'RELATION_RECORD_ID';
-                if (field?.maxSelect != 1) {
+                if (field?.maxSelect !== 1) {
                     val = [val];
                 }
+            } else if(field.type === "blob") {
+                val = "BLOB";
             } else {
                 val = "test";
             }
@@ -1161,6 +1164,8 @@ export default class CommonHelper {
                 return "ri-text";
             case "number":
                 return "ri-hashtag";
+            case "integer":
+                return "ri-hashtag";
             case "date":
                 return "ri-calendar-line";
             case "bool":
@@ -1181,6 +1186,8 @@ export default class CommonHelper {
                 return "ri-mind-map";
             case "password":
                 return "ri-lock-password-line";
+            case "blob":
+                return "ri-file-2-line";
             case "autodate":
                 return "ri-calendar-check-line";
             default:
@@ -1220,7 +1227,7 @@ export default class CommonHelper {
      * @return {String}
      */
     static zeroDefaultStr(field) {
-        if (field?.type === "number") {
+        if (field?.type === "number" || field?.type === "integer") {
             return "0";
         }
 
