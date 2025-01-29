@@ -187,8 +187,8 @@ class ApiClient_ extends Client{
         const idField = table1?.fields
           .find(f => f.name === 'id' && f.primary && f.type === 'text')?.name;
         const pkFields = table1?.fields?.filter(f => f.primary)?.map(f => f.name);
-        if((pkFields?.length||0 > 1) && idField){
-            console.error('Table has id field and multiple primary key fields. Not supported at the moment')
+        if(((pkFields?.length||0) > 1) && idField){
+            console.error('Table has id field and multiple primary key fields. Not supported at the moment', pkFields)
             res.splice(0, res.length) // clear res array so that the data cannot be used.
         }
         res.forEach((item) => {

@@ -1,6 +1,6 @@
 {
   "name": "@teenybase/pocket-ui",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Pocket UI for teenybase admin. (forked from pocketbase)",
   "type": "module",
   "scripts": {
@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "prepare": "npm run build",
     "run-pack": "npm pack",
-    "run-publish": "git diff --quiet master -- && npm publish --access public && git tag v$(node -p \"require('./package.json').version\") && git push --tags"
+    "run-publish": "git diff --exit-code --name-only master * && npm publish --access public && git tag v$npm_package_version && git push --tags"
   },
   "files": [
     "dist",
