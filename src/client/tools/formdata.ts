@@ -96,9 +96,9 @@ export function convertToFormDataIfNeeded(body: any): any {
     const form = new FormData();
 
     const {files, body: body2} = removeFileFields(body)
-    console.log(body)
-    console.log(files)
-    console.log(body2)
+    // console.log(body)
+    // console.log(files)
+    // console.log(body2)
     form.append("@jsonPayload", JSON.stringify(body2));
 
     for (const [key, val] of files) {

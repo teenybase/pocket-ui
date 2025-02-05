@@ -35,7 +35,7 @@ class ApiClient_ extends Client{
     logout(){
         this.authStore.clear()
         // return replace("/")
-        window.location.href = './logout'
+        window.location.href = uibase + '/logout'
     }
 
     private _settingsLoading: Promise<DatabaseSettings>|undefined
@@ -273,7 +273,7 @@ class ApiClient_ extends Client{
     }
 
     async login(username: string, password: string) {
-        const res = await fetch('./login', {
+        const res = await fetch(uibase + '/login', {
             method: 'post',
             body: JSON.stringify({username, password}),
             headers: {'Content-Type': 'application/json'}
@@ -294,7 +294,7 @@ class ApiClient_ extends Client{
     }
 
     checkLoginCookie(){
-        const superuserCookie = document.cookie.split(';').find(c=>c.startsWith('teeny-pocket-ui-user-data='))
+        const superuserCookie = document.cookie.split(';').find(c=>c.trim().startsWith('teeny-pocket-ui-user-data='))
         if(superuserCookie){
             const token = decodeURIComponent(superuserCookie.split('=')[1])
             const decoded = JSON.parse(atob(token))
@@ -305,7 +305,11 @@ class ApiClient_ extends Client{
     }
 }
 
-export const ApiClient = new ApiClient_((import.meta as any).env.PB_BACKEND_URL || '/api/v1');
+const base = (window as any).API_BASE_URL || (import.meta as any).env.PB_BACKEND_URL || '/api/v1'
+const uibase = (window as any).API_UI_BASE_URL || '.'
+console.log(base,uibase)
+
+export const ApiClient = new ApiClient_(base);
 
 ApiClient.checkLoginCookie()
 
