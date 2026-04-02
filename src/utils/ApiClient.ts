@@ -87,7 +87,7 @@ class ApiClient_ extends Client{
                 offset: Math.max(page-1, 0) * perPage,
                 select: options.fields,
                 where: options.filter,
-                sort: options.sort
+                order: options.sort
             }),
             requestKey: options.requestKey
         })

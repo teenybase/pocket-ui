@@ -1,6 +1,6 @@
 {
   "name": "@teenybase/pocket-ui",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Pocket UI for teenybase admin. (forked from pocketbase)",
   "type": "module",
   "scripts": {
@@ -33,7 +33,7 @@
     "sass": "^1.45.0",
     "svelte": "^4.0.0",
     "svelte-spa-router": "^4.0.1",
-    "teenybase": "^0.0.2",
+    "teenybase": "^0.0.11",
     "typescript": "^5.7.2",
     "vite": "^5.0.11",
     "luxon": "^3.5.0",
