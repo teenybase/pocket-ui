@@ -15,6 +15,7 @@
     "dist",
     "README.md",
     "LICENSE",
+    "NOTICE",
     "package.json",
     "tsconfig.json"
   ],

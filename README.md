@@ -1,6 +1,7 @@
 # Pocket UI for teenybase
 
 Forked Superuser UI from [pocketbase](https://github.com/pocketbase/pocketbase) and modified for use in [teenybase](https://teenybase.com/index.html).
+PocketBase is MIT-licensed (© Gani Georgiev); its copyright and license notice is kept in [NOTICE](NOTICE).
 > teenybase is in pre-alpha and not suitable for production use yet.
 
 ## Usage 
