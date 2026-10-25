@@ -37,4 +37,4 @@ Bump `version` in `package.json`, add a section for it to [CHANGELOG.md](CHANGEL
 
 ## License
 
-The teenybase changes are licensed under [Apache-2.0](LICENSE). The PocketBase code they build on is under the MIT licence in [NOTICE](NOTICE).
+MIT, like PocketBase: see [LICENSE](LICENSE). PocketBase's copyright notice is kept in [LICENSE](LICENSE) and [NOTICE](NOTICE).

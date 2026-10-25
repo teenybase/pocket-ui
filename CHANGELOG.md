@@ -2,7 +2,8 @@
 
 ## 0.0.6 - 2026-10-26
 
-- The package now ships a `NOTICE` file with PocketBase's MIT copyright and licence notice (this UI is a fork of the PocketBase admin dashboard, and `src/client` is a subset of the PocketBase JS SDK). The `license` field is now `Apache-2.0 AND MIT`.
+- Licensed under MIT, the same licence as PocketBase (it was Apache-2.0). LICENSE carries both PocketBase's and teenybase's copyright notices.
+- The package now ships a `NOTICE` file with PocketBase's MIT copyright and licence notice (this UI is a fork of the PocketBase admin dashboard, and `src/client` is a subset of the PocketBase JS SDK).
 - The repository moved to [teenybase/pocket-ui](https://github.com/teenybase/pocket-ui). `repository`, `bugs` and `homepage` point there, and the docs link in the UI header points to [teenybase/teenybase](https://github.com/teenybase/teenybase).
 - Releases are published from GitHub Actions with npm trusted publishing and provenance.
 - No UI changes since 0.0.5.

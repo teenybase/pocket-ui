@@ -27,7 +27,7 @@
     "url": "https://github.com/teenybase/pocket-ui/issues"
   },
   "author": "repalash <palash@shaders.app>",
-  "license": "Apache-2.0 AND MIT",
+  "license": "MIT",
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.1.2",
     "@types/node": "^22.10.1",
