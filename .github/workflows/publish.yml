@@ -1,0 +1,33 @@
+# Publishes @teenybase/pocket-ui to npm through repalash/release-tools when the version in
+# package.json is not on npm yet. Any other push stops after the version check.
+# `npm ci` also builds dist/ (the prepare script runs `vite build`), and the pack step runs prepare
+# again, so the tarball always contains a fresh dist/.
+# Release: bump "version", add its CHANGELOG.md section, push to master, approve the run.
+name: Publish to npm
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Runs queue: a newer push waits; a running publish is never cancelled.
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: github.repository == 'teenybase/pocket-ui'
+    permissions:
+      contents: write # tags and GitHub releases
+      id-token: write # npm trusted publishing
+    uses: repalash/release-tools/.github/workflows/npm-release.yml@v1
+    with:
+      build: npm ci
+      require-changelog: true
+      tag-format: v{version}
+      github-release: true
+    secrets: inherit

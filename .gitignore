@@ -23,8 +23,8 @@ dist/
 node_modules/
 .wrangler
 
-# env
-.env
+# env: .env is committed on purpose (only the public PB_* build settings Vite reads);
+# put private values in .env.local, which is ignored above.
 .env.production
 .dev.vars
 .prod.vars
@@ -44,3 +44,7 @@ lerna-debug.log*
 test/**/_migrations.ts
 persist-primary
 primary-migrations
+
+# local scratch
+.trash/
+*.tgz
