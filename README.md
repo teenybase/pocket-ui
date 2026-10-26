@@ -4,7 +4,7 @@ The admin panel of [teenybase](https://github.com/teenybase/teenybase), publishe
 
 It is a fork of the [PocketBase](https://github.com/pocketbase/pocketbase) admin dashboard (`ui/`), modified to work with teenybase's API, and `src/client` is a modified subset of the [PocketBase JS SDK](https://github.com/pocketbase/js-sdk). PocketBase and its SDK are MIT-licensed, © Gani Georgiev; their copyright and licence notice is kept in [NOTICE](NOTICE) and ships in the npm package.
 
-> teenybase is in pre-alpha and not suitable for production use yet.
+> teenybase is early (v0.1): APIs may change before 1.0.
 
 ## Usage
 
