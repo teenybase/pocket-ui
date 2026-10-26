@@ -19,7 +19,7 @@
 
 Browse and edit your tables, users and files in the browser. Every teenybase app serves it at `/api/v1/pocket/`. It's a fork of the [PocketBase](https://github.com/pocketbase/pocketbase) admin dashboard, adapted to teenybase's API.
 
-<p align="center"><img src="docs/admin-panel.png" alt="The admin panel: the users table of a teenybase app, with ids, created and updated times, emails and names." width="100%" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/teenybase/pocket-ui/master/docs/admin-panel.png" alt="The admin panel: the users table of a teenybase app, with ids, created and updated times, emails and names." width="100%" /></p>
 
 > teenybase is early (v0.1): APIs may change before 1.0.
 
