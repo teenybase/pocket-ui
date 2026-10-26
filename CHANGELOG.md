@@ -6,6 +6,7 @@
 - The package now ships a `NOTICE` file with PocketBase's MIT copyright and licence notice (this UI is a fork of the PocketBase admin dashboard, and `src/client` is a subset of the PocketBase JS SDK).
 - The repository moved to [teenybase/pocket-ui](https://github.com/teenybase/pocket-ui). `repository`, `bugs` and `homepage` point there, and the docs link in the UI header points to [teenybase/teenybase](https://github.com/teenybase/teenybase).
 - Releases are published from GitHub Actions with npm trusted publishing and provenance.
+- Build settings moved from the committed `.env` files to `ui.config.ts`; all `.env*` files are ignored now.
 - No UI changes since 0.0.5.
 
 ## 0.0.5 - 2026-04-02

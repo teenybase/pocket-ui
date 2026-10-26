@@ -2,9 +2,9 @@
 /.vscode/
 .DS_Store
 
-# exclude local env files
-.env.local
-.env.*.local
+# no .env files: build settings live in ui.config.ts
+.env
+.env.*
 
 # prod
 dist/
@@ -23,9 +23,6 @@ dist/
 node_modules/
 .wrangler
 
-# env: .env is committed on purpose (only the public PB_* build settings Vite reads);
-# put private values in .env.local, which is ignored above.
-.env.production
 .dev.vars
 .prod.vars
 
