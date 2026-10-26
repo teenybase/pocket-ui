@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Production builds ignore `PB_*` environment variables, so a stray variable on the build machine can't change a released bundle; overrides still work for the dev server and `--mode development` builds.
+
 ## 0.0.6 - 2026-10-26
 
 - Licensed under MIT, the same licence as PocketBase (it was Apache-2.0). LICENSE carries both PocketBase's and teenybase's copyright notices.

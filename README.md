@@ -55,7 +55,7 @@ npm run dev          # Vite dev server on http://localhost:3000, talking to `npx
 npm run build        # production build into dist/
 ```
 
-Build settings (API URL, docs and releases links, version) are in [`ui.config.ts`](ui.config.ts); override one for a local build with an environment variable of the same name, e.g. `PB_BACKEND_URL=http://localhost:8790/api/v1 npm run dev`. To try a local build inside an app, run `npm run build && npx vite preview --port 4173` and pass `baseUrl: 'http://localhost:4173/'` to `PocketUIExtension`.
+Build settings (API URL, docs and releases links, version) are in [`ui.config.ts`](ui.config.ts); override one for the dev server with an environment variable of the same name, e.g. `PB_BACKEND_URL=http://localhost:8790/api/v1 npm run dev`. Production builds (`npm run build`) ignore the environment, so a release always ships the values in the file. To try a local build inside an app, run `npm run build && npx vite preview --port 4173` and pass `baseUrl: 'http://localhost:4173/'` to `PocketUIExtension`.
 
 ## Releases
 
